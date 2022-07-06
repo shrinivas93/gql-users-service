@@ -1,4 +1,12 @@
-directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+#directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+
+#scalar FieldSet
+
+#directive @key(fields: FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+
+extend schema
+@link(url: "https://specs.apollo.dev/federation/v2.0",
+    import: ["@key", "@shareable", "@tag"])
 
 type Query @tag(name: "social-media") {
     user(id: Int): User
@@ -13,7 +21,7 @@ type User @tag(name: "social-media") {
     website: String
     company: Company
     address: Address
-#    posts: [Post]
+    posts: [Post]
 }
 
 type Company @tag(name: "social-media") {
@@ -35,21 +43,6 @@ type Geo @tag(name: "social-media") {
     lng: String
 }
 
-#type Post @shareable {
-#type Post {
-#    id: Int
-#    userId: Int
-#    title: String
-#    body: String
-#}
-#
-## Required for all subgraph schemas
-#scalar link__Import
-#
-#directive @link(
-#    url: String!,
-#    import: [link__Import],
-#) repeatable on SCHEMA
-#
-## Required if the corresponding directive is used
-#directive @shareable on FIELD_DEFINITION | OBJECT
+type Post @tag(name: "social-media") @key(fields: "id", resolvable: false) {
+    id: Int
+}

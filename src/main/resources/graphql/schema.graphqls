@@ -1,10 +1,12 @@
-type Query {
+directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+
+type Query @tag(name: "social-media") {
     user(id: Int): User
 }
 
-type User {
+type User @tag(name: "social-media") {
     id: Int
-    name: String
+    name: String @deprecated
     username: String
     email: String
     phone: String
@@ -14,13 +16,13 @@ type User {
 #    posts: [Post]
 }
 
-type Company {
+type Company @tag(name: "social-media") {
     name: String
     catchPhrase: String
     bs: String
 }
 
-type Address {
+type Address @tag(name: "social-media") {
     street: String
     suite: String
     city: String
@@ -28,7 +30,7 @@ type Address {
     geo: Geo
 }
 
-type Geo {
+type Geo @tag(name: "social-media") {
     lat: String
     lng: String
 }

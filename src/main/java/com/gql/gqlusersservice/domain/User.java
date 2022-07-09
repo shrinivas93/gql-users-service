@@ -16,5 +16,4 @@ public class User {
     String website;
     Company company;
     Address address;
-    List<Post> posts;
 }

@@ -4,15 +4,13 @@
 
 #directive @key(fields: FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
 
-extend schema
-@link(url: "https://specs.apollo.dev/federation/v2.0",
-    import: ["@key", "@shareable", "@tag"])
+extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable", "@tag"])
 
 type Query @tag(name: "social-media") {
     user(id: Int): User
 }
 
-type User @tag(name: "social-media") {
+type User @tag(name: "social-media") @key(fields: "id") {
     id: Int
     name: String @deprecated
     username: String
@@ -21,7 +19,6 @@ type User @tag(name: "social-media") {
     website: String
     company: Company
     address: Address
-    posts: [Post]
 }
 
 type Company @tag(name: "social-media") {
@@ -41,8 +38,4 @@ type Address @tag(name: "social-media") {
 type Geo @tag(name: "social-media") {
     lat: String
     lng: String
-}
-
-type Post @tag(name: "social-media") @key(fields: "id", resolvable: false) {
-    id: Int
 }

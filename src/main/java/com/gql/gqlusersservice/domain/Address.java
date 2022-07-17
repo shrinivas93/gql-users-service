@@ -1,14 +1,11 @@
 package com.gql.gqlusersservice.domain;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 @Builder
-@Value
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Address {
-    String street;
-    String suite;
-    String city;
-    String zipcode;
-    Geo geo;
+    Integer userId;
 }

@@ -1,10 +1,10 @@
-#directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
 
-#scalar FieldSet
+scalar FieldSet
 
-#directive @key(fields: FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+directive @key(fields: FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
 
-extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable", "@tag"])
+#extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable", "@tag"])
 
 type Query @tag(name: "social-media") {
     """Fetch user by providing userId"""
@@ -28,6 +28,6 @@ type Company @tag(name: "social-media") {
     bs: String
 }
 
-type Address @tag(name: "social-media") @key(fields: "userId") {
-    userId: Int
+type Address @tag(name: "social-media") @key(fields: "userId") @extends {
+    userId: Int @external
 }

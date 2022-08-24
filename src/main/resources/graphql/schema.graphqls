@@ -30,4 +30,5 @@ type Company @tag(name: "social-media") {
 
 type Address @tag(name: "social-media") @key(fields: "userId") {
     userId: Int
+    street: String @shareable
 }

@@ -8,4 +8,5 @@ import lombok.*;
 @EqualsAndHashCode
 public class Address {
     Integer userId;
+    String street;
 }

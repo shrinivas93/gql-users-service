@@ -12,6 +12,7 @@ public class QueryResolver implements GraphQLQueryResolver {
     public User user(Integer id) {
         User user = Unirest.get(USER_ENDPOINT).routeParam("id", String.valueOf(id)).asObject(User.class).getBody();
         user.getAddress().setUserId(id);
+        user.getAddress().setStreet("StreetValueFromUserService");
         return user;
     }
 }
